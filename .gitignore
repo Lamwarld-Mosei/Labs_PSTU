@@ -9,6 +9,7 @@
 .vscode/
 Build/
 out/
+.vs/
 
 # .git
 .git

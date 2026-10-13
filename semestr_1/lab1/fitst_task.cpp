@@ -1,36 +1,43 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
+
+using namespace std;
+
+template <typename T>
+void FindResult(T a, T b, int c)
+{
+	T first_value = pow(a + b, 3);
+
+	T value1 = a * a * a;
+	T value2 = 3 * a * a * b;
+	T second_value = (value1 + value2);
+
+	T value3 = 3 * a * b * b;
+	T value4 = b * b * b;
+	T second_result = value3 + value4;
+
+	T first_result = first_value - second_value;
+	T result = first_result / second_result;
+
+	cout << "======" << typeid(T).name() << "======" << "\n";
+	cout << setprecision(c);
+
+	cout << "(a+b)^3: " << first_value << "\n\n";
+	cout << "a^3: " << value1 << "\t3ab^2: " << value2 << "\n\n";
+	cout << "(a^3 + 3ab^2): " << second_value << "\n\n";
+	cout << "3ab^2: " << value3 << "\tb^3: " << value4 << "\n\n";
+	cout << "(3ab^2 + b^3): " << second_result << "\n\n";
+	cout << "(a+b)^3 - (a^3 + 3ab^2): " << first_result << "\n\n";
+	cout << "result = " << result << "\n\n\n\n";
+}
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
 
-	double a_d = 1000.0;
-	double b_d = 0.0001;
+	cout << fixed;
 
-	double d_1 = ((a_d + b_d) * (a_d + b_d) * (a_d + b_d)) - (a_d * a_d * a_d + 3 * a_d * a_d * b_d);
-	double d_2 = 3 * a_d * b_d * b_d + b_d * b_d * b_d;
-	double result_d = d_1 / d_2;
-
-
-	float a_f = 1000.0f;
-	float b_f = 0.0001f;
-
-	float f_1 = ((a_f + b_f) * (a_f + b_f) * (a_f + b_f)) - (a_f * a_f * a_f + 3 * a_f * a_f * b_f);
-	float f_2 = 3 * a_f * b_f * b_f + b_f * b_f * b_f;
-	float result_f = f_1 / f_2;
-
-	std::cout << std::fixed << std::setprecision(15);
-	std::cout << "--- float result ---" << std::endl;
-	std::cout << "Числитель: " << f_1 << std::endl;
-	std::cout << "Знаменатель " << f_2 << std::endl;
-	std::cout << "result " << result_f << std::endl;
-
-	std::cout << std::fixed << std::setprecision(7);
-	std::cout << "--- double result ---" << std::endl;
-	std::cout << "Числитель: " << d_1 << std::endl;
-	std::cout << "Знаменатель " << d_2 << std::endl;
-	std::cout << "result " << result_d << std::endl;
-
-	return 0;
-}
+	FindResult(1000.0f, 0.0001f, 7);
+	FindResult(1000.0, 0.0001, 15);
+}	

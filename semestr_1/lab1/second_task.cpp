@@ -1,9 +1,18 @@
 #include <iostream>
 
+using namespace std;
+
 int main()
 {
-	int m = 10;
-	int n = 5;
+	setlocale(LC_ALL, "ru");
+
+	int m;
+	cout << "Введите элемент m: ";
+	cin >> m;
+
+	int n;
+	cout << "Введите элемент n: ";
+	cin >> n;
 
 	int a = n-- - m;
 	std::cout << "1) n---m\t" << a << std::endl;

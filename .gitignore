@@ -4,16 +4,13 @@
 *.o
 *.pdb
 *.ilk
+otputFormat
 
 # Папки настроек компиляторов и IDE
 .vscode/
 Build/
 out/
 .vs/
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
 # .git
 .git

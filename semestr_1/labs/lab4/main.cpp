@@ -1,80 +1,58 @@
 #include <iostream>
-#include <iomanip>
-#include <cstdlib>
-#include <ctime>
 #include <clocale>
 
-using namespace std;
+const int ROW = 4;
+const int COL = 4;
 
-void printArray(int a[], int n)
+void PrintArray(const int arr[ROW][COL])
 {
-    for (int i = 0; i < n; i++)
-        cout << setw(4) << a[i];
-    cout << endl;
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COL; j++)
+		{
+			std::cout << arr[i][j] << "\t";
+		}
+
+		std::cout << "\n";
+	}
 }
 
-
-void removeAllZeros(int a[], int& n)
+void TrasposeMatrix(const int arr[ROW][COL], int returning_matrix[ROW][COL])
 {
-    int j = 0;
-
-    for (int i = 0; i < n; i++)
-        if (a[i] != 0)
-            a[j++] = a[i];
-
-    n = j;
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COL; j++)
+		{
+			returning_matrix[i][j] = arr[ROW - 1 - j][i];
+		}
+	}
 }
 
-void insertAfterFirstEven(int a[], int& n)
+void MatrixFolding(const int arr[ROW][COL], const int arr2[ROW][COL], int matrix[ROW][COL])
 {
-    int pos = -1;
-
-    for (int i = 0; i < n; i++)
-        if (a[i] % 2 == 0)
-        {
-            pos = i;
-            break;
-        }
-
-    if (pos == -1)
-        return;
-
-    int value = (pos > 0) ? a[pos - 1] : 2;
-
-    for (int i = n; i > pos + 1; i--)
-        a[i] = a[i - 1];
-
-    a[pos + 1] = value;
-    n++;
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COL; j++)
+		{
+			matrix[i][j] = arr[i][j] + arr2[i][j];
+		}
+	}
 }
 
 int main()
 {
-    setlocale(LC_ALL, "ru");
-    srand((time(nullptr)));
+	int arr[ROW][COL] = { {3, 4, 1, 2}, {0, 2, 3, 100}, {1000, 2, 3, 0}, {10, 0, 0, -1000} };
+	PrintArray(arr);
+	std::cout << "\n\n";
 
-    int a[100];
-    int n;
+	int transposed_matrix[ROW][COL];
+	TrasposeMatrix(arr, transposed_matrix);
+	PrintArray(transposed_matrix);
+	std::cout << "\n\n";
 
-    cout << "Введите реальную длину массива (не больше " << 99 << "): ";
-    cin >> n;
+	int matrix[ROW][COL];
+	MatrixFolding(arr, transposed_matrix, matrix);
+	PrintArray(matrix);
 
-
-    for (int i = 0; i < n; i++)
-        a[i] = rand() % 21 - 10;
-
-    cout << "\n1. Исходный массив:" << endl;
-    printArray(a, n);
-
-
-    removeAllZeros(a, n);
-    cout << "\n2. Массив после удаления нулей:" << endl;
-    printArray(a, n);
-
-
-    insertAfterFirstEven(a, n);
-    cout << "\n3. Массив после вставки:" << endl;
-    printArray(a, n);
-
-    return 0;
+	return 0;
 }

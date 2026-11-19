@@ -1,11 +1,14 @@
 #include <iostream>
 #include <clocale>
 
-void PrintArray(const int arr[], const int row, const int col)
+const int ROW = 4;
+const int COL = 4;
+
+void PrintArray(const int arr[ROW][COL])
 {
-	for (int i = 0; i < row; i++)
+	for (int i = 0; i < ROW; i++)
 	{
-		for (int j = 0; j < col; j++)
+		for (int j = 0; j < COL; j++)
 		{
 			std::cout << arr[i][j] << "\t";
 		}
@@ -14,40 +17,42 @@ void PrintArray(const int arr[], const int row, const int col)
 	}
 }
 
-int[] MatrixFolding(int arr[], const int row, const int col)
+void TransposeMatrix(const int arr[ROW][COL], int returning_matrix[ROW][COL])
 {
-	int transposed_matrix[col][row];
-
-	for (int i = 0; i < col; i++)
+	for (int i = 0; i < ROW; i++)
 	{
-		for (int j = 0; j < row; j++)
-			transposed_matrix[i][j] = arr[j][i]
-	}
-
-	int matrix[row][col]; 
-
-	for (int i = 0; i < length; i++)
-	{
-		for (int j = 0; j < length; j++)
+		for (int j = 0; j < COL; j++)
 		{
-			matrix[i][j] = transposed_matrix[i]
+			returning_matrix[i][j] = arr[ROW - 1 - j][i];
 		}
 	}
+}
 
-	return matrix;
+void MatrixFolding(const int arr[ROW][COL], const int arr2[ROW][COL], int matrix[ROW][COL])
+{
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COL; j++)
+		{
+			matrix[i][j] = arr[i][j] + arr2[i][j];
+		}
+	}
 }
 
 int main()
 {
-	const int ROW = 4;
-	const int COL = 4;
-
 	int arr[ROW][COL] = { {3, 4, 1, 2}, {0, 2, 3, 100}, {1000, 2, 3, 0}, {10, 0, 0, -1000} };
+	PrintArray(arr);
+	std::cout << "\n\n";
 
-	PrintArray(arr, ROW, COL);
+	int transposed_matrix[ROW][COL];
+	TransposeMatrix(arr, transposed_matrix);
+	PrintArray(transposed_matrix);
+	std::cout << "\n\n";
 
-	int folded_matrix = MatrixFolding(arr);
-	PrintArray(arr, ROW, COL);
+	int matrix[ROW][COL];
+	MatrixFolding(arr, transposed_matrix, matrix);
+	PrintArray(matrix);
 
 	return 0;
 }
